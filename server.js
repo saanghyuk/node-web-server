@@ -16,22 +16,22 @@ app.use((req, res, next)=>{
     var log=`${now}: ${req.method} ${req.url}`;
     console.log(log);
     fs.appendFile('server.log', log + '\n', (err)=>{
-        console.log(err);
+
     });
     next();
 });
-
-app.use((req,res, next)=>{
-   res.render('maintenance.hbs')
-});
+//
+// app.use((req,res, next)=>{
+//    res.render('maintenance.hbs')
+// });
 
 app.use(express.static(__dirname + '/public'));
 
-
-app.use('/user/:id', function (req, res, next) {
-    console.log('Request Type:', req.method);
-    next();
-});
+//
+// app.use('/user/:id', function (req, res, next) {
+//     console.log('Request Type:', req.method);
+//     next();
+// });
 
 
 hbs.registerHelper('getCurrentYear', ()=>{
@@ -63,6 +63,15 @@ app.get('/bad',  (req, res)=>{
        error: 'Error Handling Request'
    })
 });
+
+
+app.get('/project', (req, res)=>{
+   res.render('portfolio.hbs', {
+       pageTitle: 'Porfolio Page'
+   })
+});
+
+
 
 app.listen(port, ()=>{
     console.log(`Server is up on port ${port}`)
